@@ -1,0 +1,47 @@
+{
+  "existing": {
+    "entry": {
+      "ENTRY00": {
+        "contentType": "s3c",
+        "createdAt": "s3d",
+        "fields": {},
+        "id": "ENTRY00",
+        "type": "s40",
+        "updatedAt": "s41",
+        "environment_id": "ENVIRONMENT01",
+        "space_id": "SPACE01"
+      },
+      "ENTRY01": {
+        "contentType": "s78",
+        "createdAt": "s79",
+        "fields": {},
+        "id": "ENTRY01",
+        "type": "s7c",
+        "updatedAt": "s7d",
+        "environment_id": "ENVIRONMENT01",
+        "space_id": "SPACE01"
+      },
+      "ENTRY02": {
+        "contentType": "sb4",
+        "createdAt": "sb5",
+        "fields": {},
+        "id": "ENTRY02",
+        "type": "sb8",
+        "updatedAt": "sb9",
+        "environment_id": "ENVIRONMENT01",
+        "space_id": "SPACE01"
+      }
+    }
+  },
+  "new": {
+    "entry": {
+      "entry_ref01": {
+        "contentType": "sf0",
+        "createdAt": "sf1",
+        "fields": {},
+        "type": "sf4",
+        "updatedAt": "sf5"
+      }
+    }
+  }
+}

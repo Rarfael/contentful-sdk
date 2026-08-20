@@ -1,0 +1,124 @@
+# BasicEntryFlow
+
+main: kit: flow: BasicEntryFlow:
+{
+  entity: "entry",
+  kind: "basic",
+  name: "BasicEntryFlow",
+  step: [
+    {
+      input: {
+        ref: "entry_ref01"
+      }
+
+      match: {
+        environment_id: "environment01",
+        space_id: "space01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        environment_id: "environment01",
+        space_id: "space01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "entry_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        environment_id: "environment01",
+        space_id: "space01"
+      }
+
+      input: {
+        ref: "entry_ref01",
+        srcdatavar: "entry_ref01_data",
+        suffix: "_up0",
+        textfield: "contentType"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-entry_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "entry_ref01",
+        srcdatavar: "entry_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        environment_id: "environment01",
+        id: "entry01",
+        space_id: "space01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-entry_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "entry_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        environment_id: "environment01",
+        id: "entry01",
+        space_id: "space01"
+      }
+
+      op: "remove"
+    }
+
+    {
+      input: {
+        suffix: "_rt0"
+      }
+
+      match: {
+        environment_id: "environment01",
+        space_id: "space01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "entry_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEntryFlow"
+}

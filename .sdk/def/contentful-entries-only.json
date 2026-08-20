@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Contentful Content Management API",
+    "version": "1.0.0",
+    "description": "Create, read, update, and delete Contentful entries."
+  },
+  "servers": [
+    { "url": "https://api.contentful.com" }
+  ],
+  "security": [
+    { "bearerAuth": [] }
+  ],
+  "paths": {
+    "/spaces/{space_id}/environments/{environment_id}/entries": {
+      "get": {
+        "operationId": "listEntries",
+        "summary": "List entries",
+        "parameters": [
+          { "name": "space_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "environment_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "content_type", "in": "query", "required": false, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Entry" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createEntry",
+        "summary": "Create an entry",
+        "parameters": [
+          { "name": "space_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "environment_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.contentful.management.v1+json": {
+              "schema": { "$ref": "#/components/schemas/EntryInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created entry",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Entry" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spaces/{space_id}/environments/{environment_id}/entries/{entry_id}": {
+      "get": {
+        "operationId": "getEntry",
+        "summary": "Retrieve an entry",
+        "parameters": [
+          { "name": "space_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "environment_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "entry_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested entry",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Entry" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateEntry",
+        "summary": "Update an entry",
+        "parameters": [
+          { "name": "space_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "environment_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "entry_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.contentful.management.v1+json": {
+              "schema": { "$ref": "#/components/schemas/EntryInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated entry",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Entry" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteEntry",
+        "summary": "Delete an entry",
+        "parameters": [
+          { "name": "space_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "environment_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "entry_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Deleted" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "EntryInput": {
+        "type": "object",
+        "required": ["fields"],
+        "properties": {
+          "fields": { "type": "object" }
+        }
+      },
+      "Entry": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "contentType": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "fields": { "type": "object" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 2
+  metrics: count: method: 5
+
+  entity: entry: {
+    path: "/spaces/{space_id}/environments/{environment_id}/entries": {
+      op: create: method: *POST
+      op: create: transform: res: *("`body.fields`")|top
+      op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/spaces/{space_id}/environments/{environment_id}/entries/{entry_id}": {
+      rename: param: "entry_id": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.fields`")|top
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+      op: update: transform: res: *("`body.fields`")|top
+    }
+  }
+
+}

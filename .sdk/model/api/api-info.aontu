@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "Create, read, update, and delete Contentful entries."
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
+      servers: [
+        {
+          url: "https://api.contentful.com"
+        }
+      ]
+      summary: "Create, read, update, and delete Contentful entries."
+      title: "Contentful Content Management API"
+      version: "1.0.0"
+      website: "https://contentful.com"
+    }
+  }
+}
+
